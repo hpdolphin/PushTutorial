@@ -16,6 +16,11 @@
     // [Parse setApplicationId:@"your_application_id" clientKey:@"your_client_key"];
     // ****************************************************************************
     
+    [Parse setApplicationId:@"43cCTNdo9HD36ICpn0XFxpYSU6Sw10cupkTDZnUX"
+                  clientKey:@"8guFwE33Qt1aYHREZFEWZXyvJQYUAHPIuccvZ7lk"];
+    
+    //Register for push notifications
+    
     // Override point for customization after application launch.
     [application registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert|UIRemoteNotificationTypeBadge|UIRemoteNotificationTypeSound];
     
