@@ -20,6 +20,10 @@
                   clientKey:@"8guFwE33Qt1aYHREZFEWZXyvJQYUAHPIuccvZ7lk"];
     
     //Register for push notifications
+    [application registerForRemoteNotificationTypes:UIRemoteNotificationTypeBadge |
+                                                    UIRemoteNotificationTypeAlert |
+                                                    UIRemoteNotificationTypeSound];
+    
     
     // Override point for customization after application launch.
     [application registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert|UIRemoteNotificationTypeBadge|UIRemoteNotificationTypeSound];
@@ -30,10 +34,13 @@
     return YES;
 }
 
-- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+// Delegate to execute if registration is successful
+// - inform Parse about this new device
+- (void)application:(UIApplication *)application
+        didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    //Store the deviceToken in the current installation and save it to Parse.
     PFInstallation *currentInstallation = [PFInstallation currentInstallation];
     [currentInstallation setDeviceTokenFromData:deviceToken];
-    currentInstallation.channels = @[@"global"];
     [currentInstallation saveInBackground];
 }
 
@@ -46,7 +53,9 @@
     }
 }
 
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+// Handle notification when notification arrived and app is active
+- (void)application:(UIApplication *)application
+        didReceiveRemoteNotification:(NSDictionary *)userInfo {
     [PFPush handlePush:userInfo];
 }
 
