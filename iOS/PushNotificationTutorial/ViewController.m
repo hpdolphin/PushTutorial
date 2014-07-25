@@ -47,6 +47,16 @@
     self.ageLabel.text = [formatter stringFromNumber:[NSNumber numberWithInt:(int)self.ageControl.value]];
 }
 
+- (IBAction)clickButton:(id)sender {
+    // Create our Installation query
+    PFQuery *pushQuery = [PFInstallation query];
+    [pushQuery whereKey:@"deviceType" equalTo:@"ios"];
+    
+    // Send push notification to query
+    [PFPush sendPushMessageToQueryInBackground:pushQuery
+                                   withMessage:@"Clicked a button!"];
+}
+
 - (void)loadInstallData {
     NSLog(@"loadInstallData");
     PFInstallation *install = [PFInstallation currentInstallation];
